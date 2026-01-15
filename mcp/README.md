@@ -1,110 +1,175 @@
-# MCP Playbook
+# MCP Servers Playbook
 
-This playbook explains how to reason about and leverage **MCP (Model Context Protocol)** servers in AI-assisted development workflows.
+This playbook documents how **MCP (Model Context Protocol) servers** are used to enrich AI-assisted engineering workflows with **external, authoritative context**.
 
-It focuses on *conceptual correctness* and *safe usage patterns*, not on implementation details.
+MCP servers extend an agent’s capabilities by giving it structured access to tools, libraries, and live knowledge sources.
 
----
-
-## What MCP Is
-
-MCP is a protocol that allows AI agents and IDEs to:
-- access external context
-- query structured data or services
-- extend their understanding beyond the local repository
-
-An MCP server provides **additional context**, not instructions or authority.
+This playbook focuses on *when* and *why* to use MCP servers, not on setup mechanics.
 
 ---
 
-## What MCP Is Good At
+## What MCP Servers Are Good At
+
+Use MCP servers when you need:
+- authoritative information from external tools or libraries
+- up-to-date knowledge that does not live in the repository
+- precise API, component, or framework references
+- reduction of hallucination risk
+
+MCP servers are most effective when:
+- the source is trusted and well-scoped
+- the question is concrete
+- local code context alone is insufficient
+
+---
+
+## What MCP Servers Are NOT For
+
+Do **not** rely on MCP servers to:
+- replace reading the actual code
+- make architectural decisions
+- infer undocumented conventions
+- compensate for unclear requirements
+
+MCP servers provide context, not judgment.
+
+---
+
+## Assumptions
+
+This playbook assumes:
+- canonical-guidelines are known and respected
+- MCP usage is intentional, not automatic
+- outputs are validated against local context
+
+External truth must still be integrated carefully.
+
+---
+
+## Common MCP Servers in Use
+
+Below are MCP servers commonly used across projects. Availability may vary by environment or IDE.
+
+### UI & Component Libraries
+
+- **shadcn**: Component patterns and CLI-driven primitives
+- **HeroUI (React / Native)**: Design system components for web and mobile
+- **Chakra UI**: Accessible React component library
+- **React Aria**: Accessibility-first component primitives
+
+Use these when:
+- referencing component APIs
+- confirming usage patterns
+- aligning with design system constraints
+
+---
+
+### Framework & Tooling
+
+- **next-devtools**: Next.js-specific debugging and conventions
+- **Playwright**: Browser automation and testing APIs
+
+Use these when:
+- validating framework-specific behavior
+- generating or reviewing test logic
+
+---
+
+### Code & Knowledge Search
+
+- **GitHub MCP**: Repository-level search and metadata
+- **grep.app**: Cross-repository code search
+
+Use these when:
+- looking for real-world usage examples
+- validating patterns across projects
+
+---
+
+### Analysis & Reasoning
+
+- **ultracite MCP**: Remote deep-analysis and reasoning support
+
+Use this when:
+- validating assumptions
+- performing second-pass analysis
+- correctness matters more than speed
+
+---
+
+## Usage Patterns
+
+### 1. Context Enrichment
 
 Use MCP servers to:
-- expose reference documentation
-- surface structured domain knowledge
-- provide read-only access to external systems
-- enrich agent understanding with controlled context
+- fetch authoritative definitions
+- confirm APIs and interfaces
+- ground reasoning in real references
 
-MCP works best when:
-- context is stable
-- interfaces are explicit
-- permissions are constrained
+This reduces hallucination and guesswork.
 
 ---
 
-## What MCP Is NOT For
+### 2. Cross-Validation
 
-Do **not** use MCP servers to:
-- encode canonical rules
-- bypass code review or human approval
-- execute destructive actions by default
-- inject mutable or unbounded context
+Use MCP servers to:
+- verify conclusions drawn from local code
+- compare patterns against external sources
 
-MCP should extend *visibility*, not *power*.
-
----
-
-## Common Usage Patterns
-
-### 1. Reference Context
-
-Expose:
-- canonical documentation
-- internal handbooks
-- API references
-
-This allows agents to reason with shared knowledge without duplicating it.
-
-### 2. Structured Queries
-
-Provide:
-- bounded query interfaces
-- deterministic outputs
-- clear schemas
-
-Avoid free-form or side-effectful endpoints.
+Think of this as an external consistency check.
 
 ---
 
 ## Guardrails
 
-When working with MCP servers:
-- prefer read-only access
-- keep scopes narrow
-- document exposed capabilities
-- assume agents may misunderstand intent
+When using MCP servers:
+- prefer trusted and official sources
+- avoid mixing conflicting external guidance
+- always reconcile with local code
+- stop if results introduce ambiguity
 
-Every exposed capability should be treated as a public API.
+External context should clarify, not confuse.
 
 ---
 
 ## Failure Modes & Risks
 
 Common risks include:
-- leaking sensitive context
-- introducing stale or misleading data
-- overloading agents with irrelevant information
+- blindly trusting external examples
+- version mismatches
+- importing patterns that do not fit the codebase
 
 Mitigation strategies:
-- explicit scoping
-- documentation-first design
-- conservative defaults
+- check versions explicitly
+- adapt patterns intentionally
+- defer to project constraints
+
+---
+
+## Relationship to Other Playbooks
+
+- opencode: discovers structure and generates drafts
+- ultracite: performs focused deep analysis
+- sisyphus: accelerates iterative refinement
+
+MCP servers **augment** these tools with external truth.
 
 ---
 
 ## Relationship to Canonical Guidelines
 
 MCP servers:
-- may expose canonical documentation
-- must not redefine canonical rules
-- must defer to canonical-guidelines for authority
+- do not define rules
+- do not override invariants
+- must operate within canonical-guidelines
 
-If MCP-provided context conflicts with canonical rules, the MCP context is wrong.
+If external guidance conflicts with canonical rules, canonical rules win.
 
 ---
 
 ## Summary
 
-Use MCP to **expand context safely**.
+Use MCP servers when **local context is insufficient** and correctness depends on authoritative external knowledge.
 
-The value of MCP comes from discipline, not from reach.
+They are most valuable when used deliberately and sparingly.
+
